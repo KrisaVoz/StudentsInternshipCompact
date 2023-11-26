@@ -1,0 +1,57 @@
+﻿<Page x:Class="StudentsInternship.Views.GroupsPages.GroupsAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudentsInternship.Views.GroupsPages" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="Группы. Добавление">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20 25">
+            <StackPanel Margin="25 0" Width="250">
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Группа"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding GroupNumberName}" DataObject.Pasting="GroupNumberPastingHandler" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="GroupNumberValidationTextBox" MaxLength="200"/>
+                </StackPanel>
+
+                <StackPanel Margin="0 10">
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Специальность"/>
+                    </Border>
+                    <ComboBox Height="30" x:Name="cmbxSpeciality" DisplayMemberPath="NumberNameSpeciality"  SelectedItem="{Binding Specialties}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Образовательная организация"/>
+                    </Border>
+                    <ComboBox Height="30" x:Name="cmbEducationalOrganisation" DisplayMemberPath="Name"  SelectedItem="{Binding EducationalOrganisations}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+            <Border Grid.Row="1" Background="{StaticResource ColorSecondary}" BorderBrush="{StaticResource ColorAccent}" CornerRadius="0 0 15 15" BorderThickness="0 3 0 0">
+            <DockPanel HorizontalAlignment="Right" Margin="30 0 30 0">
+                <Button Style="{StaticResource addButton}" Click="BtnSave_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSave" Margin="0 1 8 0"/>
+                        <TextBlock Text="Сохранить"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSaveAndNew" Style="{StaticResource addAndNewButton}" Margin="15 0 0 0" Click="BtnSaveAndNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSaveSettings" Margin="0 2 8 0"/>
+                        <TextBlock Text="Сохранить и след."/>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Page>
+ 

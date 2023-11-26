@@ -1,0 +1,83 @@
+﻿<Page x:Class="StudentsInternship.Views.StudentsPages.StudentsAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudentsInternship.Views.StudentsPages" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="Студенты. Добавление">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20 25">
+            <StackPanel Margin="25 0" Width="200">
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Фамилия"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding Surname}" DataObject.Pasting="NamePastingHandler" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="OnlyTextValidationTextBox" MaxLength="200"/>
+                </StackPanel>
+                <StackPanel Margin="0 10">
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Имя"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding Name}" DataObject.Pasting="NamePastingHandler" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="OnlyTextValidationTextBox" MaxLength="200"/>
+                </StackPanel>
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Отчество"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding Patronymic}" DataObject.Pasting="NamePastingHandler" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="OnlyTextValidationTextBox" MaxLength="200"/>
+                </StackPanel>
+                <StackPanel Margin="0 10">
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Телефон"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding Phone}" DataObject.Pasting="PhonePastingHandler" PreviewTextInput="PhoneValidationTextBox" MaxLength="50"/>
+                </StackPanel>
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Прописка"/>
+                    </Border>
+                    <Border Style="{StaticResource blockBorderBottomAddEdit}">
+                        <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=ResidenceRegistration, Mode=TwoWay}"/>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="25 0" Width="200">
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Группа"/>
+                    </Border>
+                    <ComboBox Height="30" x:Name="cmbxGroup" DisplayMemberPath="NumberOrganisationText"  SelectedItem="{Binding Groups}"/>
+                </StackPanel>
+                <StackPanel Margin="0 10">
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Курс"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" Text="{Binding Course}" DataObject.Pasting="NumberPastingHandler" PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="NumberValidationTextBox" MaxLength="30"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Row="1" Background="{StaticResource ColorSecondary}" BorderBrush="{StaticResource ColorAccent}" CornerRadius="0 0 15 15" BorderThickness="0 3 0 0">
+            <DockPanel HorizontalAlignment="Right" Margin="30 0 30 0">
+                <Button Style="{StaticResource addButton}" Click="BtnSave_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSave" Margin="0 1 8 0"/>
+                        <TextBlock Text="Сохранить"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSaveAndNew" Style="{StaticResource addAndNewButton}" Margin="15 0 0 0" Click="BtnSaveAndNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSaveSettings" Margin="0 2 8 0"/>
+                        <TextBlock Text="Сохранить и след."/>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Page>

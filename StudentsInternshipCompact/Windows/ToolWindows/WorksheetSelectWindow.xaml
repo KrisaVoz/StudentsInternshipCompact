@@ -1,0 +1,37 @@
+﻿<Window x:Class="StudentsInternship.Windows.ToolWindows.WorksheetSelectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentsInternship.Windows.ToolWindows" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+Title="Окно добавления/Редактирования" Width="Auto" Height="Auto" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent" Loaded="Window_Loaded" ResizeMode="NoResize">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border MouseDown="Border_MouseDown" Background="{StaticResource ColorAccent}" CornerRadius="15 15 0 0">
+                <DockPanel Grid.Row="0" >
+                    <TextBlock x:Name="windowTitle" Text="Выбор листа" VerticalAlignment="Center" Margin="10 0 0 0"
+                               Foreground="{DynamicResource ColorText0}" FontSize="16" FontFamily="Comic Sans MS"/>
+                    <Button Style="{StaticResource closeButton}" Click="CloseButton_Click">
+                        <Icon:PackIconMaterial Kind="Close" Width="10" Height="10"/>
+                    </Button>
+                </DockPanel>
+            </Border>
+            <Border Grid.Row="1" Background="{StaticResource ColorPrimary}" CornerRadius="0 0 15 15" BorderThickness="2" BorderBrush="{StaticResource ColorAccent}">
+                <StackPanel Margin="10 20">
+                    <TextBlock FontSize="16" Text="Выберите лист Excel" Width="auto"/>
+                    <ComboBox x:Name="cmbWorksheetSelection" SelectedIndex="0"/>
+                    <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                        <Button Width="150" Style="{StaticResource addButton}" Content="Подтвердить" Click="OKButton_Click" />
+                        <Button Width="100" Margin="5 0 0 0" Style="{StaticResource addAndNewButton}" Content="Отмена" Click="CancelButton_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

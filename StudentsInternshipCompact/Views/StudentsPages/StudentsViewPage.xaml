@@ -1,0 +1,202 @@
+﻿<Page x:Class="StudentsInternship.Views.StudentsPages.StudentsViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1080"
+      Title="Студенты" Loaded="Page_Loaded">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorText60}"/>
+            <Setter Property="BorderThickness" Value="0.5 0 0 0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorText60}"/>
+            <Setter Property="Padding" Value="0 0 0 0"/>
+            <EventSetter Event="Click" Handler="DataGridColumnHeader_Click" />
+            <!--This is changing the column header padding-->
+            <Setter Property="Margin" Value="0 0 0 10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                        <Grid>
+                            <theme:DataGridHeaderBorder Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" IsPressed="{TemplateBinding IsPressed}" IsHovered="{TemplateBinding IsMouseOver}" IsClickable="{TemplateBinding CanUserSort}" Padding="{TemplateBinding Padding}" SortDirection="{TemplateBinding SortDirection}" SeparatorVisibility="{TemplateBinding SeparatorVisibility}" SeparatorBrush="{TemplateBinding SeparatorBrush}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter Grid.Row="0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    <Path x:Name="SortArrow" Visibility="Collapsed" Data="M0,0 L1,0 0.5,1 z" Stretch="Fill"
+                                        Width="8" Height="6" Fill="{StaticResource ColorAccent}" Margin="0,0,8,0"
+                                        Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0.5,0.4" />
+                                </Grid>
+                            </theme:DataGridHeaderBorder>
+                            <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
+                            <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="Sorted">
+                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="SortArrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="180" />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="SortedDesc">
+                                <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Tag, RelativeSource={RelativeSource Self}}" Value="">
+                                <Setter TargetName="SortArrow" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DockPanel>
+                <!--Search Box-->
+                <Grid Width="200" HorizontalAlignment="Left" Margin="15 0">
+                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="{StaticResource ColorText60}" IsHitTestVisible="False"
+                          Panel.ZIndex="1" Text="Поиск..." FontSize="14"
+                          Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty, Converter={StaticResource BoolToVisibility}}"/>
+
+                    <TextBox x:Name="txtSearch" Style="{StaticResource txtboxSearch}" TextChanged="txtSearch_TextChanged"/>
+
+                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                           Margin="0 0 15 0" Foreground="{StaticResource ColorText60}"/>
+                </Grid>
+                <Grid Margin="10 0">
+                    <ComboBox x:Name="cmbFilter" SelectionChanged="CBoxFilterBy_SelectionChanged" MinWidth="150" MaxWidth="300" Height="40" Width="auto">
+                        <ComboBoxItem Content="Без фильтрации"></ComboBoxItem>
+                        <ComboBoxItem Content="Есть прописка"></ComboBoxItem>
+                        <ComboBoxItem Content="Нет прописки"></ComboBoxItem>
+                        <ComboBoxItem Content="Есть телефон"></ComboBoxItem>
+                        <ComboBoxItem Content="Нет телефона"></ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+                <!--Button Add-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource filterCloseButton}" HorizontalAlignment="Right" Margin="0 0 10 0" Click="deleteFiltersButton_Click" ToolTip="Сбросить фильтры">
+                        <Icon:PackIconMaterial Kind="Close"/>
+                    </Button>
+                    <Button Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0 0 15 0" Click="SaveButton_Click">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="ContentSaveAll" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
+                            <TextBlock Text="Сохранить данные"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource addButton}" HorizontalAlignment="Right" Margin="0 0 30 0" Click="AddButton_Click">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
+                            <TextBlock Text="Добавить"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid CanUserSortColumns="False" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" x:Name="viewDataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="#" Width="auto" Binding="{Binding ID}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Фамилия" Width="auto"  Binding="{Binding Surname}"/>
+                    <DataGridTextColumn Header="Имя" Width="auto"  Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Отчество" Width="auto"  Binding="{Binding Patronymic}"/>
+                    <DataGridTextColumn Header="Телефон" Width="auto"  Binding="{Binding Phone}"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Специальность" Width="auto"  Binding="{Binding Groups.Specialties.NumberNameSpeciality}"/>
+                    <DataGridCheckBoxColumn Header="Прописка" Width="auto"  Binding="{Binding ResidenceRegistration}"/>
+                    <DataGridTextColumn Header="Курс" Width="auto"  Binding="{Binding Course}"/>
+                    <DataGridComboBoxColumn Header="Группа" Width="auto"  x:Name="cmbdtGroupNumber"  SelectedValueBinding="{Binding Groups}" DisplayMemberPath="NumberOrganisationText"/>
+                    <DataGridTextColumn IsReadOnly="True" Header="Учебное заведение" Width="auto" Binding="{Binding Groups.EducationalOrganisations.Name}"/>
+                </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Click="BtnEdit_Click">
+                            <MenuItem.Icon>
+                                <Viewbox Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Fill="{StaticResource ColorText100}" Data="M19,3A2,2 0 0,1 21,5V19C21,20.11 20.1,21 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M16.7,9.35C16.92,9.14 16.92,8.79 16.7,8.58L15.42,7.3C15.21,7.08 14.86,7.08 14.65,7.3L13.65,8.3L15.7,10.35L16.7,9.35M7,14.94V17H9.06L15.12,10.94L13.06,8.88L7,14.94Z"/>
+                                    </Canvas>
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Удалить" Click="BtnDelete_Click">
+                            <MenuItem.Icon>
+                                <Viewbox Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Fill="{StaticResource ColorText100}" Data="M8.27,3L3,8.27V15.73L8.27,21H15.73L21,15.73V8.27L15.73,3M8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59L15.59,17L12,13.41L8.41,17L7,15.59L10.59,12L7,8.41"/>
+                                    </Canvas>
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Импорт из Excel" Click="BtnExcelImport_Click">
+                            <MenuItem.Icon>
+                                <Viewbox Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Canvas Width="24" Height="24">
+                                        <Path Fill="{StaticResource ColorText100}" Data="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H9.97L8 12.06L9.93 8.89H8.22L7.13 10.9L7.09 10.96L7.06 11.03Q6.8 10.5 6.5 9.96 6.25 9.43 5.97 8.89H4.16L6.05 12.08L4 15.28H5.78M13.88 19.5V17H8.25V19.5M13.88 15.75V12.63H12V15.75M13.88 11.38V8.25H12V11.38M13.88 7V4.5H8.25V7M20.75 19.5V17H15.13V19.5M20.75 15.75V12.63H15.13V15.75M20.75 11.38V8.25H15.13V11.38M20.75 7V4.5H15.13V7Z"/>
+                                    </Canvas>
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+            </DataGrid>
+        </Grid>
+        <DockPanel Grid.Row="2">
+            <Border BorderBrush="{StaticResource ColorAccent}" CornerRadius="5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                    BorderThickness="1" Padding="10 5" Margin="10 0 0 0" Background="{StaticResource ColorSecondary}">
+                <TextBlock x:Name="tbItemCounter" Text="Счётчик значений" Padding="5" Foreground="{StaticResource ColorText60}" VerticalAlignment="Center"/>
+            </Border>
+            <!--Pagination Nav Block-->
+            <Border BorderBrush="{StaticResource ColorAccent}" CornerRadius="5" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    BorderThickness="1" Padding="5" Margin="0 0 10 0" Background="{StaticResource ColorSecondary}" x:Name="blockPagingControls">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="tbPageCounter" Text="Счётчик страниц" Foreground="{StaticResource ColorText60}" VerticalAlignment="Center" Margin="5 0"/>
+                    <Rectangle Width="2" Fill="{StaticResource ColorText60}" Margin="3 7"/>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonStart_Click" x:Name="btnPagingStart">
+                        <Icon:PackIconMaterial Kind="ChevronDoubleLeft" Style="{StaticResource paginationButtonIcon}"/>
+                    </Button>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonPrevious_Click" x:Name="btnPagingPrevious">
+                        <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource paginationButtonIcon}"/>
+                    </Button>
+                    <Rectangle Width="1" Fill="{StaticResource ColorText60}" Margin="3 7"/>
+
+                    <Button Style="{StaticResource paginationButton}"  Click="PaginationButtonCurrentMinus3_Click" x:Name="btnPagingCurrentMinus3" Content="1"/>
+                    <Button Style="{StaticResource paginationButton}"  Click="PaginationButtonCurrentMinus2_Click" x:Name="btnPagingCurrentMinus2" Content="2"/>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonCurrentMinus1_Click" x:Name="btnPagingCurrentMinus1" Content="3"/>
+                    <Border Width="30" HorizontalAlignment="Right" Margin="1 0" Background="{StaticResource ColorAccent}" CornerRadius="5" >
+                        <TextBox Width="30" x:Name="txtCurrentPage" Style="{StaticResource txtboxPagination}" Padding="0 5.5"
+                                 PreviewKeyDown="TextBox_PreviewKeyDown" PreviewTextInput="NumberValidationTextBox" MaxLength="10" Foreground="{StaticResource ColorText0}" 
+                                 Text="1" TextChanged="txtCurrentPage_TextChanged"/>
+                    </Border>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonCurrentPlus1_Click" x:Name="btnPagingCurrentPlus1" Content="7"/>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonCurrentPlus2_Click" x:Name="btnPagingCurrentPlus2" Content="8"/>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonCurrentPlus3_Click" x:Name="btnPagingCurrentPlus3" Content="9"/>
+                    
+                    <Rectangle Width="1" Fill="{StaticResource ColorText60}" Margin="3 7"/>
+
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonNext_Click" x:Name="btnPagingNext">
+                        <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource paginationButtonIcon}"/>
+                    </Button>
+                    <Button Style="{StaticResource paginationButton}" Click="PaginationButtonEnd_Click" x:Name="btnPagingEnd">
+                        <Icon:PackIconMaterial Kind="ChevronDoubleRight" Style="{StaticResource paginationButtonIcon}"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </DockPanel>
+    </Grid>
+</Page>

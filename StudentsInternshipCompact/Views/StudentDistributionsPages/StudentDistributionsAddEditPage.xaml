@@ -1,0 +1,115 @@
+﻿<Page x:Class="StudentsInternship.Views.StudentDistributionsPages.StudentDistributionsAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudentsInternship.Views.StudentDistributionsPages" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+ d:DesignHeight="720" d:DesignWidth="800"
+      Title="Распределение студентов. Добавление">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <DockPanel Margin="20 25">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Margin="25 0" Width="300">
+                    <StackPanel>
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Учебное заведение"/>
+                        </Border>
+                        <ComboBox Height="30" x:Name="cmbEducationalOrganisation" DisplayMemberPath="Name" SelectionChanged="cmbEducationalOrganisation_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 10">
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Группа"/>
+                        </Border>
+                        <ComboBox Height="30" IsEnabled="False" x:Name="cmbGroup" DisplayMemberPath="GroupNumberName" SelectionChanged="cmbGroup_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Практика"/>
+                        </Border>
+                        <ComboBox Height="30" IsEnabled="False" x:Name="cmbPracticesSchedules" DisplayMemberPath="IDStartEndDate" SelectionChanged="cmbPracticesSchedules_SelectionChanged"/>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <StackPanel Margin="25 0" Width="300">
+                    <StackPanel>
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Компания с договором"/>
+                        </Border>
+                        <ComboBox Height="30" IsEnabled="False" x:Name="cmbAgreement" DisplayMemberPath="CompanyName" SelectionChanged="cmbAgreement_SelectionChanged" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem.CompanyName}"/>
+                    </StackPanel>
+                    <StackPanel Margin="0 10">
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Кол-во человек на практику"/>
+                        </Border>
+                        <Border Style="{StaticResource blockBorderBottomAddEdit}">
+                            <TextBlock x:Name="tbPeopleOnAgreement" Style="{StaticResource blockAddEdit}" Foreground="{StaticResource ColorText100}" Text="0"/>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel>
+                        <Border Style="{StaticResource blockBorderAddEdit}">
+                            <TextBlock Style="{StaticResource blockAddEdit}" Text="Необходима регистрация СПБ?"/>
+                        </Border>
+                        <Border Style="{StaticResource blockBorderBottomAddEdit}">
+                            <TextBlock x:Name="txtResidenceRequired" Style="{StaticResource blockAddEdit}" Foreground="{StaticResource ColorText100}" Text="?"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel DockPanel.Dock="Bottom" Margin="0 20 0 0">
+                <StackPanel Margin="0 0 0 10">
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Студент"/>
+                    </Border>
+                    <ComboBox Height="30" IsEnabled="False" x:Name="cmbStudents" DisplayMemberPath="FullName" SelectionChanged="cmbStudents_SelectionChanged"/>
+                </StackPanel>
+                <DataGrid x:Name="datagridSpecilities" IsReadOnly="True" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" Height="200" Width="760">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Группа" Width="auto" Binding="{Binding Path=PracticeSchedules.Groups.GroupNumberName}"/>
+                        <DataGridTextColumn Header="Специальность" Width="auto" Binding="{Binding Path=PracticeSchedules.Groups.Specialties.NumberNameSpeciality}"/>
+                        <DataGridTextColumn Header="Дата начала" Width="auto" Binding="{Binding Path=PracticeSchedules.PracticeStartDate, ConverterCulture='ru-RU', StringFormat=d}"/>
+                        <DataGridTextColumn Header="Дата конца" Width="auto" Binding="{Binding Path=PracticeSchedules.PracticeEndDate, ConverterCulture='ru-RU', StringFormat=d}"/>
+
+                        <DataGridTextColumn Header="Студенты" Width="auto" Binding="{Binding Path=StudentsList}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Удалить" Click="BtnDelete_Click">
+                                <MenuItem.Icon>
+                                    <Viewbox Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <Canvas Width="24" Height="24">
+                                            <Path Fill="{StaticResource ColorText100}" Data="M8.27,3L3,8.27V15.73L8.27,21H15.73L21,15.73V8.27L15.73,3M8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59L15.59,17L12,13.41L8.41,17L7,15.59L10.59,12L7,8.41"/>
+                                        </Canvas>
+                                    </Viewbox>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </StackPanel>
+        </DockPanel>
+        <Border Grid.Row="1" Background="{StaticResource ColorSecondary}" BorderBrush="{StaticResource ColorAccent}" CornerRadius="0 0 15 15" BorderThickness="0 3 0 0">
+            <DockPanel HorizontalAlignment="Right" Margin="30 0 30 0">
+                <Button Style="{StaticResource addButton}" Click="BtnSave_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSave" Margin="0 1 8 0"/>
+                        <TextBlock Text="Сохранить Word"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSaveAndNew" Style="{StaticResource addAndNewButton}" Margin="15 0 0 0" Click="BtnSaveAndNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSaveSettings" Margin="0 2 8 0"/>
+                        <TextBlock Text="Просмотреть в Word"/>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Page>

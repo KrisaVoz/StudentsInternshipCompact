@@ -1,0 +1,856 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище StudentsIntershipDB" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agreements">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+          </Key>
+          <Property Name="AgreementNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AgreementType" Type="int" Nullable="false" />
+          <Property Name="DateOfAgreement" Type="datetime" />
+          <Property Name="CompanyName" Type="ntext" Nullable="false" />
+          <Property Name="CompanyINN" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyLegalAddress" Type="ntext" />
+          <Property Name="ContactPerson" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="500" />
+          <Property Name="AgreementStartDate" Type="datetime" />
+          <Property Name="AgreementEndDate" Type="datetime" />
+          <Property Name="Prolongation" Type="bit" Nullable="false" />
+          <Property Name="NumberOfPeople" Type="int" />
+          <Property Name="Remark" Type="ntext" />
+          <Property Name="IsRegistrationRequired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AgreementSpeciality">
+          <Key>
+            <PropertyRef Name="AgreementID" />
+            <PropertyRef Name="SpecialityID" />
+          </Key>
+          <Property Name="AgreementID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SpecialityID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfAdding" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AgreementTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AgreementTypeName" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EducationalOrganisations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupNumberName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Speciality" Type="nvarchar" MaxLength="50" />
+          <Property Name="EducationalOrganisation" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PracticeDistributions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PracticeScheduleID" Type="int" Nullable="false" />
+          <Property Name="AgreementID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsInTheSameCompany" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PracticeSchedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupID" Type="int" Nullable="false" />
+          <Property Name="PracticeStartDate" Type="datetime" Nullable="false" />
+          <Property Name="PracticeEndDate" Type="datetime" Nullable="false" />
+          <Property Name="PracticeSubject" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PracticeSubjects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PracticeSubjectName" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialties">
+          <Key>
+            <PropertyRef Name="SpecialityNumber" />
+          </Key>
+          <Property Name="SpecialityNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SpecialityName" Type="nvarchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="300" />
+          <Property Name="ResidenceRegistration" Type="bit" Nullable="false" />
+          <Property Name="Course" Type="int" />
+          <Property Name="GroupNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentsDistribution">
+          <Key>
+            <PropertyRef Name="PracticeDistributionsID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="PracticeDistributionsID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="DateOfAdding" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="image" />
+        </EntityType>
+        <Association Name="FK_Agreements_AgreementTypes">
+          <End Role="AgreementTypes" Type="Self.AgreementTypes" Multiplicity="1" />
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgreementTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Agreements">
+              <PropertyRef Name="AgreementType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementSpeciality_Agreements">
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AgreementSpeciality" Type="Self.AgreementSpeciality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreements">
+              <PropertyRef Name="AgreementNumber" />
+            </Principal>
+            <Dependent Role="AgreementSpeciality">
+              <PropertyRef Name="AgreementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementSpeciality_Specialties">
+          <End Role="Specialties" Type="Self.Specialties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AgreementSpeciality" Type="Self.AgreementSpeciality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialties">
+              <PropertyRef Name="SpecialityNumber" />
+            </Principal>
+            <Dependent Role="AgreementSpeciality">
+              <PropertyRef Name="SpecialityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_EducationalOrganisations">
+          <End Role="EducationalOrganisations" Type="Self.EducationalOrganisations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalOrganisations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="EducationalOrganisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Specialties">
+          <End Role="Specialties" Type="Self.Specialties" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialties">
+              <PropertyRef Name="SpecialityNumber" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="Speciality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeDistributions_Agreements">
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="1" />
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreements">
+              <PropertyRef Name="AgreementNumber" />
+            </Principal>
+            <Dependent Role="PracticeDistributions">
+              <PropertyRef Name="AgreementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeDistributions_PracticeSchedules">
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="1" />
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeSchedules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeDistributions">
+              <PropertyRef Name="PracticeScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeSchedules_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeSchedules">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeSchedules_PracticeSubjects">
+          <End Role="PracticeSubjects" Type="Self.PracticeSubjects" Multiplicity="1" />
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeSubjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeSchedules">
+              <PropertyRef Name="PracticeSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentsDistribution_PracticeDistributions">
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentsDistribution" Type="Self.StudentsDistribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeDistributions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentsDistribution">
+              <PropertyRef Name="PracticeDistributionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentsDistributions_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="StudentsDistribution" Type="Self.StudentsDistribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentsDistribution">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище StudentsIntershipDBContainer">
+          <EntitySet Name="Agreements" EntityType="Self.Agreements" store:Type="Tables" />
+          <EntitySet Name="AgreementSpeciality" EntityType="Self.AgreementSpeciality" store:Type="Tables" />
+          <EntitySet Name="AgreementTypes" EntityType="Self.AgreementTypes" store:Type="Tables" />
+          <EntitySet Name="EducationalOrganisations" EntityType="Self.EducationalOrganisations" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" store:Type="Tables" />
+          <EntitySet Name="PracticeDistributions" EntityType="Self.PracticeDistributions" store:Type="Tables" />
+          <EntitySet Name="PracticeSchedules" EntityType="Self.PracticeSchedules" store:Type="Tables" />
+          <EntitySet Name="PracticeSubjects" EntityType="Self.PracticeSubjects" store:Type="Tables" />
+          <EntitySet Name="Specialties" EntityType="Self.Specialties" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" store:Type="Tables" />
+          <EntitySet Name="StudentsDistribution" EntityType="Self.StudentsDistribution" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" />
+          <AssociationSet Name="FK_Agreements_AgreementTypes" Association="Self.FK_Agreements_AgreementTypes">
+            <End Role="AgreementTypes" EntitySet="AgreementTypes" />
+            <End Role="Agreements" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementSpeciality_Agreements" Association="Self.FK_AgreementSpeciality_Agreements">
+            <End Role="Agreements" EntitySet="Agreements" />
+            <End Role="AgreementSpeciality" EntitySet="AgreementSpeciality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementSpeciality_Specialties" Association="Self.FK_AgreementSpeciality_Specialties">
+            <End Role="Specialties" EntitySet="Specialties" />
+            <End Role="AgreementSpeciality" EntitySet="AgreementSpeciality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_EducationalOrganisations" Association="Self.FK_Groups_EducationalOrganisations">
+            <End Role="EducationalOrganisations" EntitySet="EducationalOrganisations" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Specialties" Association="Self.FK_Groups_Specialties">
+            <End Role="Specialties" EntitySet="Specialties" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeDistributions_Agreements" Association="Self.FK_PracticeDistributions_Agreements">
+            <End Role="Agreements" EntitySet="Agreements" />
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeDistributions_PracticeSchedules" Association="Self.FK_PracticeDistributions_PracticeSchedules">
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeSchedules_Groups" Association="Self.FK_PracticeSchedules_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeSchedules_PracticeSubjects" Association="Self.FK_PracticeSchedules_PracticeSubjects">
+            <End Role="PracticeSubjects" EntitySet="PracticeSubjects" />
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentsDistribution_PracticeDistributions" Association="Self.FK_StudentsDistribution_PracticeDistributions">
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+            <End Role="StudentsDistribution" EntitySet="StudentsDistribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentsDistributions_Students" Association="Self.FK_StudentsDistributions_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="StudentsDistribution" EntitySet="StudentsDistribution" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StudentsIntershipDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agreements">
+          <Key>
+            <PropertyRef Name="AgreementNumber" />
+          </Key>
+          <Property Name="AgreementNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgreementType" Type="Int32" Nullable="false" />
+          <Property Name="DateOfAgreement" Type="DateTime" Precision="3" />
+          <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompanyINN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyLegalAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPerson" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AgreementStartDate" Type="DateTime" Precision="3" />
+          <Property Name="AgreementEndDate" Type="DateTime" Precision="3" />
+          <Property Name="Prolongation" Type="Boolean" Nullable="false" />
+          <Property Name="NumberOfPeople" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRegistrationRequired" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AgreementTypes" Relationship="Self.FK_Agreements_AgreementTypes" FromRole="Agreements" ToRole="AgreementTypes" />
+          <NavigationProperty Name="AgreementSpeciality" Relationship="Self.FK_AgreementSpeciality_Agreements" FromRole="Agreements" ToRole="AgreementSpeciality" />
+          <NavigationProperty Name="PracticeDistributions" Relationship="Self.FK_PracticeDistributions_Agreements" FromRole="Agreements" ToRole="PracticeDistributions" />
+        </EntityType>
+        <EntityType Name="AgreementSpeciality">
+          <Key>
+            <PropertyRef Name="AgreementID" />
+            <PropertyRef Name="SpecialityID" />
+          </Key>
+          <Property Name="AgreementID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpecialityID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfAdding" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Agreements" Relationship="Self.FK_AgreementSpeciality_Agreements" FromRole="AgreementSpeciality" ToRole="Agreements" />
+          <NavigationProperty Name="Specialties" Relationship="Self.FK_AgreementSpeciality_Specialties" FromRole="AgreementSpeciality" ToRole="Specialties" />
+        </EntityType>
+        <EntityType Name="AgreementTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AgreementTypeName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Agreements" Relationship="Self.FK_Agreements_AgreementTypes" FromRole="AgreementTypes" ToRole="Agreements" />
+        </EntityType>
+        <EntityType Name="EducationalOrganisations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_EducationalOrganisations" FromRole="EducationalOrganisations" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupNumberName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Speciality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EducationalOrganisation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EducationalOrganisations" Relationship="Self.FK_Groups_EducationalOrganisations" FromRole="Groups" ToRole="EducationalOrganisations" />
+          <NavigationProperty Name="Specialties" Relationship="Self.FK_Groups_Specialties" FromRole="Groups" ToRole="Specialties" />
+          <NavigationProperty Name="PracticeSchedules" Relationship="Self.FK_PracticeSchedules_Groups" FromRole="Groups" ToRole="PracticeSchedules" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Groups" FromRole="Groups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="PracticeDistributions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PracticeScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="AgreementID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsInTheSameCompany" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Agreements" Relationship="Self.FK_PracticeDistributions_Agreements" FromRole="PracticeDistributions" ToRole="Agreements" />
+          <NavigationProperty Name="PracticeSchedules" Relationship="Self.FK_PracticeDistributions_PracticeSchedules" FromRole="PracticeDistributions" ToRole="PracticeSchedules" />
+          <NavigationProperty Name="StudentsDistribution" Relationship="Self.FK_StudentsDistribution_PracticeDistributions" FromRole="PracticeDistributions" ToRole="StudentsDistribution" />
+        </EntityType>
+        <EntityType Name="PracticeSchedules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <Property Name="PracticeStartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PracticeEndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PracticeSubject" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_PracticeSchedules_Groups" FromRole="PracticeSchedules" ToRole="Groups" />
+          <NavigationProperty Name="PracticeDistributions" Relationship="Self.FK_PracticeDistributions_PracticeSchedules" FromRole="PracticeSchedules" ToRole="PracticeDistributions" />
+          <NavigationProperty Name="PracticeSubjects" Relationship="Self.FK_PracticeSchedules_PracticeSubjects" FromRole="PracticeSchedules" ToRole="PracticeSubjects" />
+        </EntityType>
+        <EntityType Name="PracticeSubjects">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PracticeSubjectName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PracticeSchedules" Relationship="Self.FK_PracticeSchedules_PracticeSubjects" FromRole="PracticeSubjects" ToRole="PracticeSchedules" />
+        </EntityType>
+        <EntityType Name="Specialties">
+          <Key>
+            <PropertyRef Name="SpecialityNumber" />
+          </Key>
+          <Property Name="SpecialityNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpecialityName" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AgreementSpeciality" Relationship="Self.FK_AgreementSpeciality_Specialties" FromRole="Specialties" ToRole="AgreementSpeciality" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Groups_Specialties" FromRole="Specialties" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ResidenceRegistration" Type="Boolean" Nullable="false" />
+          <Property Name="Course" Type="Int32" />
+          <Property Name="GroupNumber" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Students_Groups" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="StudentsDistribution" Relationship="Self.FK_StudentsDistributions_Students" FromRole="Students" ToRole="StudentsDistribution" />
+        </EntityType>
+        <EntityType Name="StudentsDistribution">
+          <Key>
+            <PropertyRef Name="PracticeDistributionsID" />
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="PracticeDistributionsID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="DateOfAdding" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PracticeDistributions" Relationship="Self.FK_StudentsDistribution_PracticeDistributions" FromRole="StudentsDistribution" ToRole="PracticeDistributions" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_StudentsDistributions_Students" FromRole="StudentsDistribution" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Agreements_AgreementTypes">
+          <End Role="AgreementTypes" Type="Self.AgreementTypes" Multiplicity="1" />
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgreementTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Agreements">
+              <PropertyRef Name="AgreementType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementSpeciality_Agreements">
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AgreementSpeciality" Type="Self.AgreementSpeciality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreements">
+              <PropertyRef Name="AgreementNumber" />
+            </Principal>
+            <Dependent Role="AgreementSpeciality">
+              <PropertyRef Name="AgreementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeDistributions_Agreements">
+          <End Role="Agreements" Type="Self.Agreements" Multiplicity="1" />
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Agreements">
+              <PropertyRef Name="AgreementNumber" />
+            </Principal>
+            <Dependent Role="PracticeDistributions">
+              <PropertyRef Name="AgreementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AgreementSpeciality_Specialties">
+          <End Role="Specialties" Type="Self.Specialties" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AgreementSpeciality" Type="Self.AgreementSpeciality" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialties">
+              <PropertyRef Name="SpecialityNumber" />
+            </Principal>
+            <Dependent Role="AgreementSpeciality">
+              <PropertyRef Name="SpecialityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_EducationalOrganisations">
+          <End Role="EducationalOrganisations" Type="Self.EducationalOrganisations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EducationalOrganisations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="EducationalOrganisation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Groups_Specialties">
+          <End Role="Specialties" Type="Self.Specialties" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialties">
+              <PropertyRef Name="SpecialityNumber" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="Speciality" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeSchedules_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeSchedules">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeDistributions_PracticeSchedules">
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="1" />
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeSchedules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeDistributions">
+              <PropertyRef Name="PracticeScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentsDistribution_PracticeDistributions">
+          <End Role="PracticeDistributions" Type="Self.PracticeDistributions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StudentsDistribution" Type="Self.StudentsDistribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeDistributions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentsDistribution">
+              <PropertyRef Name="PracticeDistributionsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PracticeSchedules_PracticeSubjects">
+          <End Role="PracticeSubjects" Type="Self.PracticeSubjects" Multiplicity="1" />
+          <End Role="PracticeSchedules" Type="Self.PracticeSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracticeSubjects">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PracticeSchedules">
+              <PropertyRef Name="PracticeSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentsDistributions_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="StudentsDistribution" Type="Self.StudentsDistribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StudentsDistribution">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StudentsIntershipDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agreements" EntityType="Self.Agreements" />
+          <EntitySet Name="AgreementSpeciality" EntityType="Self.AgreementSpeciality" />
+          <EntitySet Name="AgreementTypes" EntityType="Self.AgreementTypes" />
+          <EntitySet Name="EducationalOrganisations" EntityType="Self.EducationalOrganisations" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="PracticeDistributions" EntityType="Self.PracticeDistributions" />
+          <EntitySet Name="PracticeSchedules" EntityType="Self.PracticeSchedules" />
+          <EntitySet Name="PracticeSubjects" EntityType="Self.PracticeSubjects" />
+          <EntitySet Name="Specialties" EntityType="Self.Specialties" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="StudentsDistribution" EntityType="Self.StudentsDistribution" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_Agreements_AgreementTypes" Association="Self.FK_Agreements_AgreementTypes">
+            <End Role="AgreementTypes" EntitySet="AgreementTypes" />
+            <End Role="Agreements" EntitySet="Agreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementSpeciality_Agreements" Association="Self.FK_AgreementSpeciality_Agreements">
+            <End Role="Agreements" EntitySet="Agreements" />
+            <End Role="AgreementSpeciality" EntitySet="AgreementSpeciality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeDistributions_Agreements" Association="Self.FK_PracticeDistributions_Agreements">
+            <End Role="Agreements" EntitySet="Agreements" />
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AgreementSpeciality_Specialties" Association="Self.FK_AgreementSpeciality_Specialties">
+            <End Role="Specialties" EntitySet="Specialties" />
+            <End Role="AgreementSpeciality" EntitySet="AgreementSpeciality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_EducationalOrganisations" Association="Self.FK_Groups_EducationalOrganisations">
+            <End Role="EducationalOrganisations" EntitySet="EducationalOrganisations" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Groups_Specialties" Association="Self.FK_Groups_Specialties">
+            <End Role="Specialties" EntitySet="Specialties" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeSchedules_Groups" Association="Self.FK_PracticeSchedules_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeDistributions_PracticeSchedules" Association="Self.FK_PracticeDistributions_PracticeSchedules">
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentsDistribution_PracticeDistributions" Association="Self.FK_StudentsDistribution_PracticeDistributions">
+            <End Role="PracticeDistributions" EntitySet="PracticeDistributions" />
+            <End Role="StudentsDistribution" EntitySet="StudentsDistribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PracticeSchedules_PracticeSubjects" Association="Self.FK_PracticeSchedules_PracticeSubjects">
+            <End Role="PracticeSubjects" EntitySet="PracticeSubjects" />
+            <End Role="PracticeSchedules" EntitySet="PracticeSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentsDistributions_Students" Association="Self.FK_StudentsDistributions_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="StudentsDistribution" EntitySet="StudentsDistribution" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище StudentsIntershipDBContainer" CdmEntityContainer="StudentsIntershipDBEntities">
+          <EntitySetMapping Name="Agreements">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.Agreements">
+              <MappingFragment StoreEntitySet="Agreements">
+                <ScalarProperty Name="AgreementNumber" ColumnName="AgreementNumber" />
+                <ScalarProperty Name="AgreementType" ColumnName="AgreementType" />
+                <ScalarProperty Name="DateOfAgreement" ColumnName="DateOfAgreement" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyINN" ColumnName="CompanyINN" />
+                <ScalarProperty Name="CompanyLegalAddress" ColumnName="CompanyLegalAddress" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="AgreementStartDate" ColumnName="AgreementStartDate" />
+                <ScalarProperty Name="AgreementEndDate" ColumnName="AgreementEndDate" />
+                <ScalarProperty Name="Prolongation" ColumnName="Prolongation" />
+                <ScalarProperty Name="NumberOfPeople" ColumnName="NumberOfPeople" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsRegistrationRequired" ColumnName="IsRegistrationRequired" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgreementSpeciality">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.AgreementSpeciality">
+              <MappingFragment StoreEntitySet="AgreementSpeciality">
+                <ScalarProperty Name="AgreementID" ColumnName="AgreementID" />
+                <ScalarProperty Name="SpecialityID" ColumnName="SpecialityID" />
+                <ScalarProperty Name="DateOfAdding" ColumnName="DateOfAdding" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AgreementTypes">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.AgreementTypes">
+              <MappingFragment StoreEntitySet="AgreementTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AgreementTypeName" ColumnName="AgreementTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EducationalOrganisations">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.EducationalOrganisations">
+              <MappingFragment StoreEntitySet="EducationalOrganisations">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupNumberName" ColumnName="GroupNumberName" />
+                <ScalarProperty Name="Speciality" ColumnName="Speciality" />
+                <ScalarProperty Name="EducationalOrganisation" ColumnName="EducationalOrganisation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PracticeDistributions">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.PracticeDistributions">
+              <MappingFragment StoreEntitySet="PracticeDistributions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PracticeScheduleID" ColumnName="PracticeScheduleID" />
+                <ScalarProperty Name="AgreementID" ColumnName="AgreementID" />
+                <ScalarProperty Name="IsInTheSameCompany" ColumnName="IsInTheSameCompany" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PracticeSchedules">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.PracticeSchedules">
+              <MappingFragment StoreEntitySet="PracticeSchedules">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="PracticeStartDate" ColumnName="PracticeStartDate" />
+                <ScalarProperty Name="PracticeEndDate" ColumnName="PracticeEndDate" />
+                <ScalarProperty Name="PracticeSubject" ColumnName="PracticeSubject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PracticeSubjects">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.PracticeSubjects">
+              <MappingFragment StoreEntitySet="PracticeSubjects">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PracticeSubjectName" ColumnName="PracticeSubjectName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialties">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.Specialties">
+              <MappingFragment StoreEntitySet="Specialties">
+                <ScalarProperty Name="SpecialityNumber" ColumnName="SpecialityNumber" />
+                <ScalarProperty Name="SpecialityName" ColumnName="SpecialityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ResidenceRegistration" ColumnName="ResidenceRegistration" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+                <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentsDistribution">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.StudentsDistribution">
+              <MappingFragment StoreEntitySet="StudentsDistribution">
+                <ScalarProperty Name="PracticeDistributionsID" ColumnName="PracticeDistributionsID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="DateOfAdding" ColumnName="DateOfAdding" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="StudentsIntershipDB.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

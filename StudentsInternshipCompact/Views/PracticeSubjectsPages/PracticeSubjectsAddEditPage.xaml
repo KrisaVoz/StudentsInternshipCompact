@@ -1,0 +1,42 @@
+﻿<Page x:Class="StudentsInternship.Views.PracticeSubjectsPages.PracticeSubjectsAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudentsInternship.Views.PracticeSubjectsPages" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="600"
+      Title="Тематики практики. Добавление">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20 25">
+            <StackPanel Margin="25 0"  Width="300">
+                <StackPanel>
+                    <Border Style="{StaticResource blockBorderAddEdit}">
+                        <TextBlock Style="{StaticResource blockAddEdit}" Text="Название"/>
+                    </Border>
+                    <TextBox Style="{StaticResource txtboxAddEdit}" MaxHeight="300" Text="{Binding PracticeSubjectName}" TextWrapping="Wrap" PreviewTextInput="OnlyTextValidationTextBox" MaxLength="500"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Row="1" Background="{StaticResource ColorSecondary}" BorderBrush="{StaticResource ColorAccent}" CornerRadius="0 0 15 15" BorderThickness="0 3 0 0">
+            <DockPanel HorizontalAlignment="Right" Margin="30 0 30 0">
+                <Button Style="{StaticResource addButton}" Click="BtnSave_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSave" Margin="0 1 8 0"/>
+                        <TextBlock Text="Сохранить"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnSaveAndNew" Style="{StaticResource addAndNewButton}" Margin="15 0 0 0" Click="BtnSaveAndNew_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="ContentSaveSettings" Margin="0 2 8 0"/>
+                        <TextBlock Text="Сохранить и след."/>
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+        </Border>
+    </Grid>
+</Page>

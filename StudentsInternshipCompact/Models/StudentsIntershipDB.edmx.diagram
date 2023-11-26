@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d61bfc3f28e94ec79705e5ee4c0802bc" Name="Diagram1">
+        <EntityTypeShape EntityType="StudentsIntershipDB.Agreements" Width="1.5" PointX="5.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.AgreementSpeciality" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.AgreementTypes" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.EducationalOrganisations" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.Groups" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.PracticeDistributions" Width="1.5" PointX="7.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.PracticeSchedules" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.PracticeSubjects" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.Specialties" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.Students" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.StudentsDistribution" Width="1.5" PointX="9.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="StudentsIntershipDB.sysdiagrams" Width="1.5" PointX="7.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_Agreements_AgreementTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_AgreementSpeciality_Agreements" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_PracticeDistributions_Agreements" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_AgreementSpeciality_Specialties" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_Groups_EducationalOrganisations" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_Groups_Specialties" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_PracticeSchedules_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_Students_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_PracticeDistributions_PracticeSchedules" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_StudentsDistribution_PracticeDistributions" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_PracticeSchedules_PracticeSubjects" ManuallyRouted="false" />
+        <AssociationConnector Association="StudentsIntershipDB.FK_StudentsDistributions_Students" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
